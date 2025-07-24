@@ -3,14 +3,14 @@ import React from 'react';
 export default function SplashScreen() {
     return (
       <div className="w-screen h-screen bg-[#f83758] relative overflow-hidden flex items-center justify-center">
-        <div className="absolute top-0 left-0 w-40 rotate-[-30deg] opacity-80">
-          <img src="/phone1.png" alt="mockup" className="w-full" />
+        <div className="absolute top-0 left-0 w-60 rotate-[-145deg] opacity-80">
+          <img src="/public/SignUpSS.png" alt="mockup" className="w-full" />
         </div>
-        <div className="absolute top-4 right-10 w-44 rotate-[25deg] opacity-80">
-          <img src="/phone2.png" alt="mockup" className="w-full" />
+        <div className="absolute top-2 right-0 w-44 rotate-[45deg] opacity-80">
+          <img src="/public/LoginSS.png" alt="mockup" className="w-full" />
         </div>
         <div className="absolute bottom-8 left-12 w-44 rotate-[15deg] opacity-80">
-          <img src="/phone3.png" alt="mockup" className="w-full" />
+          <img src="/public/ChooseProfileSS.png" alt="mockup" className="w-full" />
         </div>
         <div className="absolute bottom-10 right-14 w-40 rotate-[-15deg] opacity-80">
           <img src="/phone4.png" alt="mockup" className="w-full" />

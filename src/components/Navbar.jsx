@@ -22,20 +22,17 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
- const handleProfileClick = () => {
-   const profileType = localStorage.getItem("profileType");
-
-   if (profileType === "individual") {
-     navigate("/individual-profile");
-   } else if (profileType === "business") {
-     navigate("/business-profile");
-   } else {
-     navigate("/profile-choice"); // fallback if not set
-   }
-
-   setProfileOpen(false);
- };
-
+  const handleProfileClick = () => {
+    const profileType = localStorage.getItem("profileType");
+    if (profileType === "individual") {
+      navigate("/individual-profile");
+    } else if (profileType === "business") {
+      navigate("/business-profile");
+    } else {
+      navigate("/complete-profile");
+    }
+    setProfileOpen(false);
+  };
 
   return (
     <header className="bg-[#E63946] text-white px-4 py-3 shadow-md relative z-50">
@@ -91,13 +88,22 @@ const Navbar = () => {
               <FaUserCircle size={24} />
             </button>
             {profileOpen && (
-              <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-md shadow-lg z-50">
+              <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-50">
                 <ul className="text-sm divide-y divide-gray-200">
                   <li
                     onClick={handleProfileClick}
                     className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                   >
                     View Profile
+                  </li>
+                  <li
+                    onClick={() => {
+                      setProfileOpen(false);
+                      navigate("/history");
+                    }}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  >
+                    History
                   </li>
                   <li
                     onClick={() => {

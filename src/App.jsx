@@ -15,6 +15,8 @@ import ProfileChoice from "./components/ProfileChoice";
 import Home from "./pages/Home";
 import IndividualProfile from "./components/IndividualProfile";
 import BusinessProfile from "./components/BusinessProfile";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SplashRedirect() {
   const navigate = useNavigate();
@@ -30,6 +32,7 @@ function SplashRedirect() {
 export default function App() {
   return (
     <BrowserRouter>
+      <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
         <Route path="/" element={<SplashRedirect />} />
         <Route path="/login" element={<Login />} />
@@ -38,7 +41,6 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/individual-profile" element={<IndividualProfile />} />
         <Route path="/business-profile" element={<BusinessProfile />} />
-        {/* Prevent unknown routes */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

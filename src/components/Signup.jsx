@@ -1,3 +1,4 @@
+// components/Signup.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiUser, FiMail, FiPhone, FiEye, FiEyeOff } from "react-icons/fi";
@@ -115,7 +116,7 @@ export default function Signup() {
       }));
     }
 
-    // Create user
+    // Create user and save to Firestore
     try {
       const userCred = await createUserWithEmailAndPassword(
         auth,
@@ -123,14 +124,28 @@ export default function Signup() {
         password
       );
       const user = userCred.user;
-      await setDoc(doc(db, "users", user.uid), {
+
+      const userData = {
         uid: user.uid,
         fullName,
         userName,
         email,
         phone: `${countryCode}${phone}`,
         createdAt: new Date(),
-      });
+        profileType: "individual",
+      };
+
+      await setDoc(doc(db, "users", user.uid), userData);
+
+      // ✅ Set localStorage for profile sync
+      localStorage.setItem("userData", JSON.stringify(userData));
+      localStorage.setItem("profileType", "individual");
+      localStorage.setItem("isProfileCompleted", "false");
+
+      // ✅ These two are needed for profile fallback
+      localStorage.setItem("username", userName);
+      localStorage.setItem("mobile", `${countryCode}${phone}`);
+
       navigate("/complete-profile");
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
@@ -140,7 +155,7 @@ export default function Signup() {
         }));
       }
       console.error("Signup Error:", err);
-      setErrors((e) => ({ ...e, signup: err.message }));
+      setErrors((e) => ({ ...e, signup: "Signup failed. Please try again." }));
     }
   };
 
@@ -218,7 +233,7 @@ export default function Signup() {
           </div>
 
           {/* Phone */}
-          <div className="relative flex space-x-2">
+          <div className="flex space-x-2">
             <select
               name="countryCode"
               value={formData.countryCode}
@@ -241,10 +256,10 @@ export default function Signup() {
               />
               <FiPhone className="absolute right-3 top-2.5 text-[#7b7b7c]" />
             </div>
-            {errors.phone && (
-              <p className="mt-1 text-red-500 text-xs">{errors.phone}</p>
-            )}
           </div>
+          {errors.phone && (
+            <p className="mt-1 text-red-500 text-xs">{errors.phone}</p>
+          )}
 
           {/* Password */}
           <div className="relative">
@@ -282,20 +297,13 @@ export default function Signup() {
             )}
           </div>
 
-          {/* Agreement */}
-          <p className="text-xs text-[#7b7b7c]">
-            By clicking <span className="text-[#F83758]">Register</span>, you
-            agree to the public offer
-          </p>
-
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-black text-white text-base font-semibold py-2 rounded mt-2 transform transition-transform duration-200 hover:scale-105 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
+            className="w-full bg-black text-white font-semibold py-2 rounded mt-2 transform transition duration-200 hover:scale-105 hover:-translate-y-1 hover:shadow-lg"
           >
             CREATE ACCOUNT
           </button>
-
           {errors.signup && (
             <p className="mt-2 text-center text-red-500 text-sm">
               {errors.signup}
@@ -303,28 +311,26 @@ export default function Signup() {
           )}
         </form>
 
-        {/* Social */}
+        {/* Social & Login Link */}
         <div className="text-center my-4 text-sm text-[#7b7b7c]">
           - OR Continue with -
         </div>
         <div className="flex justify-center space-x-4 mb-4">
-          <button className="bg-[#efe6e8] border border-[#f83758] p-2 rounded-full shadow-md cursor-pointer">
+          <button className="bg-[#efe6e8] border border-[#f83758] p-2 rounded-full shadow-md">
             <FcGoogle size={24} />
           </button>
-          <button className="bg-[#efe6e8] border border-[#f83758] p-2 rounded-full shadow-md cursor-pointer">
+          <button className="bg-[#efe6e8] border border-[#f83758] p-2 rounded-full shadow-md">
             <FaApple size={24} />
           </button>
-          <button className="bg-[#efe6e8] border border-[#f83758] p-2 rounded-full shadow-md text-[#3b5998] cursor-pointer">
+          <button className="bg-[#efe6e8] border border-[#f83758] p-2 rounded-full shadow-md text-[#3b5998]">
             <FaFacebookF size={22} />
           </button>
         </div>
-
-        {/* Login link */}
         <p className="text-center text-sm">
           I already have an account?{" "}
           <a
             href="/login"
-            className="text-[#F83758] font-semibold italic cursor-pointer hover:underline"
+            className="text-[#F83758] font-semibold italic hover:underline"
           >
             Login
           </a>

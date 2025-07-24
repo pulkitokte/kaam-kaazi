@@ -16,7 +16,7 @@ export default function Login() {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/complete-profile"); // Redirect on success
     } catch (error) {
-      console.error("Login error:", error.message);
+      console.error("Login error:", error.message); 
       alert("Invalid email or password.");
     }
   };
@@ -24,11 +24,11 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f83758] relative overflow-hidden font-worksans">
       {/* Decorative Background Images */}
-      <div className="absolute top-0 left-0 w-[300px] -rotate-45 opacity-80">
-        <img src="/left-ui.png" alt="left background" />
+      <div className="absolute top-0 left-0 w-[200px] -rotate-45 opacity-80">
+        <img src="/public/SignUpSS.png" alt="left background" />
       </div>
       <div className="absolute bottom-0 right-0 w-[300px] rotate-45 opacity-80">
-        <img src="/right-ui.png" alt="right background" />
+        <img src="/public/ChooseProfileSS.png " alt="right background" />
       </div>
 
       {/* Login Card */}
