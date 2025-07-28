@@ -1,48 +1,49 @@
 import React from "react";
-import { FaToolbox, FaPaintRoller, FaBath, FaCut } from "react-icons/fa"; // placeholder icons
-import { MdPlumbing } from "react-icons/md";
 
 const services = [
   {
     name: "Plumber",
-    icon: <MdPlumbing size={30} className="text-red-500" />,
+    icon: "/water-tap.png", // from public folder
   },
   {
     name: "Carpenter",
-    icon: <FaToolbox size={30} className="text-yellow-600" />,
+    icon: "/plumber.png",
   },
   {
     name: "Salon",
-    icon: <FaCut size={30} className="text-pink-500" />,
+    icon: "/salon.png",
   },
   {
     name: "Painter",
-    icon: <FaPaintRoller size={30} className="text-blue-500" />,
+    icon: "/painting.png",
   },
 ];
 
-
 export default function ServicesProvided() {
-    return (
-      <div className="mt-6 pxx-4">
-        <div className="text-lg font-semibold mb-4 flex jusitfy-between items-center">
-          <span>Services Provided</span>
-          <span className="text-sm text-blue-500 cursor-pointer hover:underline">
-            →
-          </span>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-                {services.map((service) => (
-                    <div
-                        key={service.name}
-                        className="bg-pink-100 rounded-lg p-4 flex justify-center items-center hover:shadow-lg transition"
-                    >
-                        {service.icon}
-                        <p className="mt-2 text-sm fon">{ service.name }</p>
-                    </div>
-                ))}
-
-            </div>
+  return (
+    <div className="mt-6 px-4">
+      <div className="text-lg font-semibold mb-4 flex justify-between items-center">
+        <span>Services Provided</span>
+        <span className="text-sm text-blue-500 cursor-pointer hover:underline">
+          →
+        </span>
       </div>
-    );
+
+      <div className="grid grid-cols-2 gap-4">
+        {services.map((service) => (
+          <div
+            key={service.name}
+            className="bg-pink-100 rounded-lg p-4 flex flex-col items-center justify-center hover:shadow-lg transition"
+          >
+            <img
+              src={service.icon}
+              alt={service.name}
+              className="w-10 h-10 mb-2 object-contain"
+            />
+            <p className="text-sm font-medium text-gray-700">{service.name}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
