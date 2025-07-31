@@ -23,7 +23,7 @@ const BannerImages = [
 
 export default function BannerCarousel() {
   return (
-    <div className="w-full h-48 md:h-64 lg:h-72 rounded-lg overflow-hidden">
+    <div className="w-full h-64 md:h-96 lg:h-[450px] rounded-lg overflow-hidden">
       <Swiper
         modules={[Autoplay, Pagination]}
         slidesPerView={1}
